@@ -5,34 +5,31 @@ using TypeSpec.Http;
 using TypeSpec.M365.Copilot.Actions;
 
 @service
-@server(GitHubAPI.SERVER_URL)
-@actions(GitHubAPI.ACTIONS_METADATA)
-namespace GitHubAPI {
+@server(RepairsAPI.SERVER_URL)
+@actions(RepairsAPI.ACTIONS_METADATA)
+
+namespace RepairsAPI {
   /**
-   * Metadata for the GitHub API actions.
+   * Metadata for the API actions.
    */
   const ACTIONS_METADATA = #{
-    nameForHuman: "GitHub",
-    descriptionForHuman: "Search open issues on GitHub.",
-    descriptionForModel: "Search open issues from GitHub repositories.",
+    nameForHuman: "Repair Service Agent",
+    descriptionForHuman: "Manage your repairs and maintenance tasks.",
+    descriptionForModel: "Plugin to add, update, remove, and review repair objects.",
     legalInfoUrl: "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
     privacyPolicyUrl: "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
   };
-  
-  /**
-   * The base URL for the GitHub API.
-   */
-  const SERVER_URL = "https://api.github.com";
 
   /**
-   * Search open issues from GitHub repositories.
-   * @param q The search query. Default is `repo:OfficeDev/microsoft-365-agents-toolkit is:open`.
-   * @param per_page The number of results per page. Default is 5.
+   * The base URL for the API.
    */
-  @route("/search/issues")
-  @card(#{ dataPath: "$.items", title: "$.title", url: "$.html_url", file: "adaptiveCards/searchIssues.json" })
-  @get op searchIssues(
-    @query q: string = "repo:OfficeDev/microsoft-365-agents-toolkit is:issue is:open", 
-    @query per_page: integer = 5
-  ): string;
+  const SERVER_URL = "https://repairshub.azurewebsites.net";
+
+  /**
+   * List repairs from the API
+   */
+
+  @route("/repairs")
+  @get op listRepairs(@query assignedTo?: string): string;
+
 }

@@ -9,26 +9,26 @@ using TypeSpec.M365.Copilot.Actions;
 
 @agent(
   "M365RepairServiceAgent",
-  "Declarative agent created with Microsoft 365 Agents Toolkit and TypeSpec for Microsoft 365 Copilot."
+  "An agent for managing repair information."
 )
 
 @instructions("""
-  You are a declarative agent and were created with Microsoft 365 Agents Toolkit and TypeSpec for Microsoft 365 Copilot.
+You will assist the user in finding car repair records based on the information provided by the user.
 """)
 
-// Uncomment this part to add a conversation starter to the agent.
-// This will be shown to the user when the agent is first created.
-// @conversationStarter(#{
-//   title: "Get latest issues",
-//   text: "Get the latest issues from GitHub" 
-// })
+@conversationStarter(
+  #{
+    title: "List repairs",
+    text: "List all repairs" 
+  }
+)
 
-namespace M365RepairServiceAgent {  
+namespace RepairServiceAgent {  
   // Uncomment this part to add actions to the agent.
-  // @service
-  // @server(global.GitHubAPI.SERVER_URL)
-  // @actions(global.GitHubAPI.ACTIONS_METADATA)
-  // namespace GitHubAPIActions {
-  //   op searchIssues is global.GitHubAPI.searchIssues;
-  // }
+  @service
+  @server(global.RepairsAPI.SERVER_URL)
+  @actions(global.RepairsAPI.ACTIONS_METADATA)
+  namespace GitHubAPIActions {
+    op listRepairs is global.RepairsAPI.listRepairs;
+  }
 }
