@@ -22,6 +22,10 @@ You will assist the user in finding car repair records based on the information 
     text: "List all repairs" 
   }
 )
+@conversationStarter(#{
+  title: "Create repair",
+  text: "Create a new repair titled \"[TO_REPLACE]\" and assign it to me"
+})
 
 namespace RepairServiceAgent {  
   // Uncomment this part to add actions to the agent.
@@ -30,5 +34,8 @@ namespace RepairServiceAgent {
   @actions(global.RepairsAPI.ACTIONS_METADATA)
   namespace GitHubAPIActions {
     op listRepairs is global.RepairsAPI.listRepairs;
+    op createRepair is global.RepairsAPI.createRepair;
+    op updateRepair is global.RepairsAPI.updateRepair;
+    op deleteRepair is global.RepairsAPI.deleteRepair;
   }
 }
